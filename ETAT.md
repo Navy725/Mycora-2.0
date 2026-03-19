@@ -18,6 +18,8 @@
 - New Input System : on utilise les **callbacks** (`OnMove`)
   et non l'ancien `Input.GetAxisRaw`
 - Utiliser `Invoke Unity Events` plutôt que `Send Messages` (plus fiable)
+- `Tilemap Collider 2D` : l'option s'appelle `Composite Operation > Merge`
+  et non `Used By Composite`
 - Template "Universal 2D" préconfigure URP + caméra orthographique
   + paramètres 2D
 
@@ -63,18 +65,31 @@
 
 ---
 
-### Session 03 — Le monde : Tilemap forêt + caméra
+### Session 03 — Tilemap forêt + caméra
+**Statut :** ✅ Terminée (2026-03-19)
+
+#### Ce qui a été fait
+| Étape | Action |
+|---|---|
+| 1 | Scène `Game.unity` ouverte dans `Scenes/Production/` |
+| 2 | Grid + `Tilemap_Ground` créés |
+| 3 | Sprite placeholder créé dans `Sprites/Environment/` |
+| 4 | Tile Palette `Palette_Ground` créée dans `Tilemaps/Palettes/` |
+| 5 | Sol peint en tuiles blanches |
+| 6 | `Tilemap Collider 2D` + `Composite Collider 2D` (Merge) ajoutés |
+| 7 | `CameraFollow.cs` créé dans `Scripts/Camera/` |
+| 8 | Caméra suit le Player avec lissage |
+
+#### Points de vigilance
+- `Order in Layer` du Player à `1` pour passer devant le Tilemap
+- `Composite Operation > Merge` = ancien `Used By Composite`
+- Offset caméra Z à `-10` obligatoire en 2D
+- Rigidbody2D du Tilemap en `Static`
+
+---
+
+### Session 04 — DayNightCycle · GlobalLight URP · ambiance
 **Statut :** 🔜 À venir
-**Objectif :** un sol de forêt (Tilemap) et une caméra qui suit le joueur
-
-#### Plan
-| Étape | Script / Composant | Concept clé |
-|---|---|---|
-| 1 | Tilemap (sol forêt) | Grid · Tilemap · TilemapCollider2D · peindre des tuiles |
-| 2 | `CameraFollow.cs` | LateUpdate · Vector3.Lerp · référencer un Transform |
-
-#### Résultat attendu
-On marche dans une forêt verte (placeholder), la caméra suit doucement.
 
 ---
 
@@ -88,35 +103,41 @@ On marche dans une forêt verte (placeholder), la caméra suit doucement.
 ---
 
 ## Structure du projet (Assets/)
+```
 Assets/
-├── Mycora/
-│    ├── Scripts/
-│    │    ├── Player/
-│    │    │   └── PlayerController.cs
-│    │    ├── Camera/
-│    │    │   └── CameraFollow.cs        ← session 03
-│    │    ├── Enemies/
-│    │    ├── UI/
-│    │    └── Core/
-│    ├── Animations/
-│    │    └── Player/
-│    ├── Audio/
-│    │    ├── Music/
-│    │    └── SFX/
-│    ├── Input/
-│    │    └── PlayerInputActions.inputactions
-│    ├── Prefabs/
-│    │    ├── Player/
-│    │    └── Enemies/
-│    ├── Scenes/
-│    │    ├── Production/
-│    │    │   └── Game.unity
-│    │    └── Sandbox/
-│    │        └── SampleScene.unity
-│    └── Sprites/
-│         ├── Player/
-│         ├── Enemies/
-│         ├── Environment/
-│         └── UI/
-├── ThirdParty/
-└── Settings/
+ ├── Mycora/
+ │    ├── Scripts/
+ │    │    ├── Player/
+ │    │    │   └── PlayerController.cs
+ │    │    ├── Camera/
+ │    │    │   └── CameraFollow.cs
+ │    │    ├── Enemies/
+ │    │    ├── UI/
+ │    │    └── Core/
+ │    ├── Animations/
+ │    │    └── Player/
+ │    ├── Audio/
+ │    │    ├── Music/
+ │    │    └── SFX/
+ │    ├── Input/
+ │    │    └── PlayerInputActions.inputactions
+ │    ├── Prefabs/
+ │    │    ├── Player/
+ │    │    └── Enemies/
+ │    ├── Scenes/
+ │    │    ├── Production/
+ │    │    │   └── Game.unity
+ │    │    └── Sandbox/
+ │    │        └── SampleScene.unity
+ │    ├── Sprites/
+ │    │    ├── Player/
+ │    │    ├── Enemies/
+ │    │    ├── Environment/
+ │    │    │   └── Tile_Ground_Placeholder
+ │    │    └── UI/
+ │    └── Tilemaps/
+ │         └── Palettes/
+ │             └── Palette_Ground
+ ├── ThirdParty/
+ └── Settings/
+```
