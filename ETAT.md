@@ -129,12 +129,32 @@
 ---
 
 ### Session 06 — SanctuaryZone · jauge de vie
+**Statut :** ✅ Terminée (2026-03-19)
+
+#### Ce qui a été fait
+| Étape | Action |
+|---|---|
+| 1 | `SanctuaryZone` créé avec `Circle Collider 2D` (Is Trigger, Radius 3) |
+| 2 | `SanctuaryHealth.cs` créé dans `Scripts/Core/` |
+| 3 | `HealthBarUI.cs` créé dans `Scripts/UI/` |
+| 4 | Canvas + Slider `HealthBar` créés en Screen Space Overlay |
+| 5 | Jauge positionnée en haut à gauche (Anchor top left) |
+| 6 | Jauge diminue progressivement — fonctionnel |
+
+#### Points de vigilance
+- `HealthBar` Slider doit être glissé dans `HealthBarUI` manuellement
+- `onHealthChanged` branché sur `HealthBarUI > UpdateHealth`
+- `onDeath` disponible pour le Game Over session 08
+- `Heal()` disponible pour soigner le Sanctuaire plus tard
+
+---
+
+### Session 07 — EnemySpawner · pathfinding · vague nocturne
 **Statut :** 🔜 À venir
 
 ---
 
 ## Backlog global
-- [ ] Session 06 — SanctuaryZone · jauge de vie
 - [ ] Session 07 — EnemySpawner · pathfinding · vague nocturne
 - [ ] Session 08 — UI · game over · restart · boucle complète
 
@@ -152,9 +172,11 @@ Assets/
  │    │    │   └── CameraFollow.cs
  │    │    ├── Enemies/
  │    │    ├── UI/
+ │    │    │   └── HealthBarUI.cs
  │    │    └── Core/
  │    │        ├── DayNightCycle.cs
- │    │        └── CorruptionManager.cs
+ │    │        ├── CorruptionManager.cs
+ │    │        └── SanctuaryHealth.cs
  │    ├── Animations/
  │    │    └── Player/
  │    ├── Audio/
