@@ -4,7 +4,7 @@
 - Unity 6.4 LTS — version 6000.4.0f1
 - Pipeline : URP (template "Universal 2D")
 - Genre : survie pixel art top-down
-- Concept : un druide purifie une forêt corrompue le jour, 
+- Concept : un druide purifie une forêt corrompue le jour,
   défend son Sanctuaire la nuit
 
 ## Dépôt Git
@@ -15,9 +15,10 @@
 
 ## Adaptations Unity 6 à retenir
 - `rb.velocity` est renommé → `rb.linearVelocity`
-- New Input System : on utilise les **callbacks** (`OnMove`, `OnJump`)
+- New Input System : on utilise les **callbacks** (`OnMove`)
   et non l'ancien `Input.GetAxisRaw`
-- Template "Universal 2D" préconfigure URP + caméra orthographique 
+- Utiliser `Invoke Unity Events` plutôt que `Send Messages` (plus fiable)
+- Template "Universal 2D" préconfigure URP + caméra orthographique
   + paramètres 2D
 
 ---
@@ -33,28 +34,32 @@
 | 1 | `PlayerController.cs` | Awake · Update · FixedUpdate · Rigidbody2D · New Input System |
 | 2 | Structure projet | Dossier `Mycora/Scripts/Player/` créé |
 
-#### Points de vigilance pour la suite
-- `groundLayer` doit être assigné dans l'Inspector
-- `groundCheck` = Transform enfant à créer manuellement sous le Player
+#### Points de vigilance
 - Utiliser `linearVelocity` (Unity 6) et non l'ancien `velocity`
+- `Animator` protégé avec `if (animator == null) return`
 
 ---
 
 ### Session 02 — Setup Inspector & premier test
-**Statut :** 🔜 À venir
-**Objectif :** brancher le PlayerController dans Unity et voir le joueur bouger
+**Statut :** ✅ Terminée (2026-03-19)
 
-#### Plan
-| Étape | Action | Concept clé |
-|---|---|---|
-| 1 | Créer l'asset `InputActions` | Actions Map · Binding WASD + Gamepad |
-| 2 | Composant `Player Input` | Lier InputActions au GameObject |
-| 3 | GameObject `GroundCheck` | Transform enfant · Physics2D.OverlapCircle |
-| 4 | Configurer `Rigidbody2D` | Freeze Rotation Z · Collision Detection |
-| 5 | Premier Play Mode | Tester mouvement + saut |
+#### Ce qui a été fait
+| Étape | Action |
+|---|---|
+| 1 | Scène `Game.unity` créée dans `Scenes/Production/` |
+| 2 | `SampleScene` déplacée dans `Scenes/Sandbox/` |
+| 3 | GameObject `Player` (Square placeholder) créé |
+| 4 | `Rigidbody2D` configuré (Gravity Scale 0, Freeze Rotation Z) |
+| 5 | Asset `PlayerInputActions` créé avec bindings AZERTY (Z/Q/S/D) |
+| 6 | Composant `Player Input` en mode `Invoke Unity Events` |
+| 7 | `PlayerController.cs` réécrit pour le top-down |
+| 8 | Premier test OK — mouvement 4 directions fonctionnel |
 
-#### Résultat attendu
-On lance le jeu, le druide (placeholder) se déplace et saute.
+#### Points de vigilance
+- Bindings AZERTY : Z/Q/S/D
+- `Invoke Unity Events` utilisé à la place de `Send Messages`
+- `Animator` protégé avec `if (animator == null) return`
+- `Gravity Scale` à `0` sur le Rigidbody2D (top-down)
 
 ---
 
@@ -83,3 +88,35 @@ On marche dans une forêt verte (placeholder), la caméra suit doucement.
 ---
 
 ## Structure du projet (Assets/)
+Assets/
+├── Mycora/
+│    ├── Scripts/
+│    │    ├── Player/
+│    │    │   └── PlayerController.cs
+│    │    ├── Camera/
+│    │    │   └── CameraFollow.cs        ← session 03
+│    │    ├── Enemies/
+│    │    ├── UI/
+│    │    └── Core/
+│    ├── Animations/
+│    │    └── Player/
+│    ├── Audio/
+│    │    ├── Music/
+│    │    └── SFX/
+│    ├── Input/
+│    │    └── PlayerInputActions.inputactions
+│    ├── Prefabs/
+│    │    ├── Player/
+│    │    └── Enemies/
+│    ├── Scenes/
+│    │    ├── Production/
+│    │    │   └── Game.unity
+│    │    └── Sandbox/
+│    │        └── SampleScene.unity
+│    └── Sprites/
+│         ├── Player/
+│         ├── Enemies/
+│         ├── Environment/
+│         └── UI/
+├── ThirdParty/
+└── Settings/
