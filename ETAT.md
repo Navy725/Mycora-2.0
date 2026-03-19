@@ -20,6 +20,8 @@
 - Utiliser `Invoke Unity Events` plutôt que `Send Messages` (plus fiable)
 - `Tilemap Collider 2D` : l'option s'appelle `Composite Operation > Merge`
   et non `Used By Composite`
+- `Global Light 2D` n'est pas créé automatiquement par le template Universal 2D
+  → à créer via `Hierarchy > Light > 2D > Global Light 2D`
 - Template "Universal 2D" préconfigure URP + caméra orthographique
   + paramètres 2D
 
@@ -89,12 +91,29 @@
 ---
 
 ### Session 04 — DayNightCycle · GlobalLight URP · ambiance
+**Statut :** ✅ Terminée (2026-03-19)
+
+#### Ce qui a été fait
+| Étape | Action |
+|---|---|
+| 1 | `GlobalLight` créé via `Light > 2D > Global Light 2D` |
+| 2 | `DayNightCycle.cs` créé dans `Scripts/Core/` |
+| 3 | `GameManager` GameObject créé dans la Hierarchy |
+| 4 | Cycle jour/nuit fonctionnel (60s jour / 40s nuit) |
+
+#### Points de vigilance
+- `dayDuration` et `nightDuration` réglables dans l'Inspector
+- `public bool IsDay()` disponible pour les autres scripts
+- Transition fluide via `Color.Lerp` et `Mathf.Lerp`
+
+---
+
+### Session 05 — Tuiles corrompues · purification au contact
 **Statut :** 🔜 À venir
 
 ---
 
 ## Backlog global
-- [ ] Session 04 — DayNightCycle · GlobalLight URP · ambiance
 - [ ] Session 05 — Tuiles corrompues · purification au contact
 - [ ] Session 06 — SanctuaryZone · jauge de vie
 - [ ] Session 07 — EnemySpawner · pathfinding · vague nocturne
@@ -114,6 +133,7 @@ Assets/
  │    │    ├── Enemies/
  │    │    ├── UI/
  │    │    └── Core/
+ │    │        └── DayNightCycle.cs
  │    ├── Animations/
  │    │    └── Player/
  │    ├── Audio/
