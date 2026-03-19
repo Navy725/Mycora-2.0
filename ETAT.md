@@ -83,7 +83,8 @@
 | 8 | Caméra suit le Player avec lissage |
 
 #### Points de vigilance
-- `Order in Layer` du Player à `1` pour passer devant le Tilemap
+- `Order in Layer` du Player à `3` pour passer devant tout
+- `Tilemap_Ground` à `0`, `Tilemap_Corruption` à `2`
 - `Composite Operation > Merge` = ancien `Used By Composite`
 - Offset caméra Z à `-10` obligatoire en 2D
 - Rigidbody2D du Tilemap en `Static`
@@ -109,12 +110,30 @@
 ---
 
 ### Session 05 — Tuiles corrompues · purification au contact
+**Statut :** ✅ Terminée (2026-03-19)
+
+#### Ce qui a été fait
+| Étape | Action |
+|---|---|
+| 1 | `Tilemap_Corruption` créée sur le Grid (Order in Layer 2) |
+| 2 | Tuiles violettes placeholder peintes (`#4A0A6B`) |
+| 3 | `CorruptionManager.cs` créé dans `Scripts/Core/` |
+| 4 | `Purification.cs` créé dans `Scripts/Player/` |
+| 5 | Purification fonctionnelle — tuiles disparaissent au contact |
+
+#### Points de vigilance
+- `Order in Layer` : Ground `0` · Corruption `2` · Player `3`
+- `purificationRate` réglable dans l'Inspector (défaut 0.5s)
+- `GetCorruptionCount()` disponible pour la jauge session 06
+
+---
+
+### Session 06 — SanctuaryZone · jauge de vie
 **Statut :** 🔜 À venir
 
 ---
 
 ## Backlog global
-- [ ] Session 05 — Tuiles corrompues · purification au contact
 - [ ] Session 06 — SanctuaryZone · jauge de vie
 - [ ] Session 07 — EnemySpawner · pathfinding · vague nocturne
 - [ ] Session 08 — UI · game over · restart · boucle complète
@@ -127,13 +146,15 @@ Assets/
  ├── Mycora/
  │    ├── Scripts/
  │    │    ├── Player/
- │    │    │   └── PlayerController.cs
+ │    │    │   ├── PlayerController.cs
+ │    │    │   └── Purification.cs
  │    │    ├── Camera/
  │    │    │   └── CameraFollow.cs
  │    │    ├── Enemies/
  │    │    ├── UI/
  │    │    └── Core/
- │    │        └── DayNightCycle.cs
+ │    │        ├── DayNightCycle.cs
+ │    │        └── CorruptionManager.cs
  │    ├── Animations/
  │    │    └── Player/
  │    ├── Audio/
@@ -153,11 +174,13 @@ Assets/
  │    │    ├── Player/
  │    │    ├── Enemies/
  │    │    ├── Environment/
- │    │    │   └── Tile_Ground_Placeholder
+ │    │    │   ├── Tile_Ground_Placeholder
+ │    │    │   └── Tile_Corruption_Placeholder
  │    │    └── UI/
  │    └── Tilemaps/
  │         └── Palettes/
- │             └── Palette_Ground
+ │             ├── Palette_Ground
+ │             └── Palette_Corruption
  ├── ThirdParty/
  └── Settings/
 ```
