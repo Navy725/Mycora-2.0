@@ -11,6 +11,9 @@ public class SanctuaryHealth : MonoBehaviour
     [SerializeField] private float corruptionDamage = 5f;
     [SerializeField] private float damageRate = 1f;
 
+    [Header("Références")]
+    [SerializeField] private DayNightCycle dayNightCycle;
+
     [Header("Événements")]
     public UnityEvent onDeath;
     public UnityEvent<float> onHealthChanged;
@@ -26,6 +29,7 @@ public class SanctuaryHealth : MonoBehaviour
     private void Update()
     {
         if (isDead) return;
+        if (dayNightCycle.IsDay()) return;
 
         damageTimer += Time.deltaTime;
         if (damageTimer >= damageRate)

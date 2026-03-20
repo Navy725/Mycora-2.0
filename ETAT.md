@@ -22,6 +22,7 @@
   et non `Used By Composite`
 - `Global Light 2D` n'est pas créé automatiquement par le template Universal 2D
   → à créer via `Hierarchy > Light > 2D > Global Light 2D`
+- Les tags doivent être créés sans espace sinon `CompareTag` plante
 - Template "Universal 2D" préconfigure URP + caméra orthographique
   + paramètres 2D
 
@@ -139,23 +140,44 @@
 | 3 | `HealthBarUI.cs` créé dans `Scripts/UI/` |
 | 4 | Canvas + Slider `HealthBar` créés en Screen Space Overlay |
 | 5 | Jauge positionnée en haut à gauche (Anchor top left) |
-| 6 | Jauge diminue progressivement — fonctionnel |
+| 6 | Jauge diminue uniquement la nuit — fonctionnel |
 
 #### Points de vigilance
 - `HealthBar` Slider doit être glissé dans `HealthBarUI` manuellement
 - `onHealthChanged` branché sur `HealthBarUI > UpdateHealth`
 - `onDeath` disponible pour le Game Over session 08
 - `Heal()` disponible pour soigner le Sanctuaire plus tard
+- `DayNightCycle` référencé dans `SanctuaryHealth` — dégâts uniquement la nuit
 
 ---
 
 ### Session 07 — EnemySpawner · pathfinding · vague nocturne
+**Statut :** ✅ Terminée (2026-03-20)
+
+#### Ce qui a été fait
+| Étape | Action |
+|---|---|
+| 1 | Prefab `Enemy` créé (carré rouge, Rigidbody2D, Circle Collider 2D) |
+| 2 | `EnemyAI.cs` créé dans `Scripts/Enemies/` |
+| 3 | `EnemySpawner.cs` créé dans `Scripts/Enemies/` |
+| 4 | Tag `Sanctuary` créé et assigné à `SanctuaryZone` |
+| 5 | Ennemis spawent la nuit et se dirigent vers le Sanctuaire |
+| 6 | Jauge descend uniquement la nuit avec les ennemis |
+
+#### Points de vigilance
+- `EnemyAI` doit être attaché au prefab `Enemy` (pas juste au GameObject)
+- Tag `Sanctuary` sans espace sinon `CompareTag` plante
+- `spawnRate` et `spawnRadius` réglables dans l'Inspector
+- `if (dayNightCycle.IsDay()) return` dans `SanctuaryHealth` et `EnemySpawner`
+
+---
+
+### Session 08 — UI · game over · restart · boucle complète
 **Statut :** 🔜 À venir
 
 ---
 
 ## Backlog global
-- [ ] Session 07 — EnemySpawner · pathfinding · vague nocturne
 - [ ] Session 08 — UI · game over · restart · boucle complète
 
 ---
@@ -171,6 +193,8 @@ Assets/
  │    │    ├── Camera/
  │    │    │   └── CameraFollow.cs
  │    │    ├── Enemies/
+ │    │    │   ├── EnemyAI.cs
+ │    │    │   └── EnemySpawner.cs
  │    │    ├── UI/
  │    │    │   └── HealthBarUI.cs
  │    │    └── Core/
@@ -187,6 +211,7 @@ Assets/
  │    ├── Prefabs/
  │    │    ├── Player/
  │    │    └── Enemies/
+ │    │        └── Enemy.prefab
  │    ├── Scenes/
  │    │    ├── Production/
  │    │    │   └── Game.unity

@@ -401,7 +401,7 @@ GameObject:
   - component: {fileID: 323768647}
   m_Layer: 0
   m_Name: SanctuaryZone
-  m_TagString: Untagged
+  m_TagString: Sanctuary
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -486,6 +486,7 @@ MonoBehaviour:
   currentHealth: 0
   corruptionDamage: 5
   damageRate: 1
+  dayNightCycle: {fileID: 611373278}
   onDeath:
     m_PersistentCalls:
       m_Calls: []
@@ -7133,6 +7134,7 @@ GameObject:
   - component: {fileID: 611373279}
   - component: {fileID: 611373278}
   - component: {fileID: 611373280}
+  - component: {fileID: 611373281}
   m_Layer: 0
   m_Name: GameManager
   m_TagString: Untagged
@@ -7152,7 +7154,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cc953380d5510304b96c5f2bfdb851e3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::DayNightCycle
-  dayDuration: 60
+  dayDuration: 5
   nightDuration: 40
   globalLight: {fileID: 2055444517}
   dayColor: {r: 1, g: 0.894, b: 0.71, a: 1}
@@ -7187,6 +7189,24 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::CorruptionManager
   corruptionTilemap: {fileID: 809393419}
+--- !u!114 &611373281
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 611373277}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 377c176de3b46b84f8fb3625976ee1ae, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::EnemySpawner
+  enemyPrefab: {fileID: 3815425240225932730, guid: 00e5cd1257d1e294bb9c39ea777d1799, type: 3}
+  sanctuaryTransform: {fileID: 323768646}
+  sanctuaryHealth: {fileID: 323768648}
+  dayNightCycle: {fileID: 611373278}
+  spawnRadius: 10
+  spawnRate: 5
 --- !u!1 &661406601
 GameObject:
   m_ObjectHideFlags: 0
