@@ -172,13 +172,45 @@
 
 ---
 
-### Session 08 — UI · game over · restart · boucle complète
-**Statut :** 🔜 À venir
+### Session 08 — UI · Game Over · Restart
+**Statut :** ✅ Terminée (2026-03-20)
+
+#### Ce qui a été fait
+| Étape | Action |
+|---|---|
+| 1 | `GameOverPanel` créé sur le Canvas (Panel noir semi-transparent) |
+| 2 | `GameOverText` TextMeshPro créé ("GAME OVER") |
+| 3 | `RestartButton` créé ("Recommencer") |
+| 4 | `GameOverUI.cs` créé dans `Scripts/UI/` |
+| 5 | `onDeath` branché sur `GameOverUI > ShowGameOver` |
+| 6 | Bouton Restart branché sur `GameOverUI > Restart` |
+| 7 | Boucle complète fonctionnelle |
+
+#### Points de vigilance
+- `Time.timeScale = 0f` pour pauser · `1f` pour reprendre
+- `SceneManager.LoadScene` recharge la scène complète
+- `GameOverPanel.SetActive(false)` au démarrage — caché par défaut
 
 ---
 
-## Backlog global
-- [ ] Session 08 — UI · game over · restart · boucle complète
+## 🎉 Prototype v1 complet !
+
+### Boucle de jeu fonctionnelle
+- ✅ Le druide bouge en top-down
+- ✅ Tilemap forêt + caméra qui suit
+- ✅ Cycle jour/nuit avec ambiance lumineuse
+- ✅ Tuiles corrompues purifiables au contact
+- ✅ Sanctuaire avec jauge de vie
+- ✅ Ennemis nocturnes qui attaquent
+- ✅ Game Over + Restart
+
+### Prochaines étapes possibles
+- [ ] Sprites pixel art (druide, ennemis, tuiles)
+- [ ] Animations (marche 4 directions, purification)
+- [ ] Sons et musique
+- [ ] Menu principal
+- [ ] Difficulté progressive (plus d'ennemis chaque nuit)
+- [ ] Score / compteur de nuits survivées
 
 ---
 
@@ -196,7 +228,8 @@ Assets/
  │    │    │   ├── EnemyAI.cs
  │    │    │   └── EnemySpawner.cs
  │    │    ├── UI/
- │    │    │   └── HealthBarUI.cs
+ │    │    │   ├── HealthBarUI.cs
+ │    │    │   └── GameOverUI.cs
  │    │    └── Core/
  │    │        ├── DayNightCycle.cs
  │    │        ├── CorruptionManager.cs
