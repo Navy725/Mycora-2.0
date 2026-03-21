@@ -12,13 +12,16 @@ public class EnemyAI : MonoBehaviour
     // Références
     private Transform target;
     private Rigidbody2D rb;
+    private Animator animator;
     private SanctuaryHealth sanctuaryHealth;
     private float damageTimer = 0f;
     private bool isInRange = false;
+    private Vector2 moveDirection;
 
     private void Awake()
     {
         rb = GetComponent<Rigidbody2D>();
+        animator = GetComponent<Animator>();
     }
 
     public void Initialize(Transform sanctuaryTransform, SanctuaryHealth health)
@@ -30,13 +33,16 @@ public class EnemyAI : MonoBehaviour
     private void FixedUpdate()
     {
         if (target == null) return;
+        if (isInRange) return;
 
-        Vector2 direction = (target.position - transform.position).normalized;
-        rb.linearVelocity = direction * moveSpeed;
+        moveDirection = (target.position - transform.position).normalized;
+        rb.linearVelocity = moveDirection * moveSpeed;
     }
 
     private void Update()
     {
+        UpdateAnimator();
+
         if (!isInRange) return;
 
         damageTimer += Time.deltaTime;
@@ -44,6 +50,19 @@ public class EnemyAI : MonoBehaviour
         {
             damageTimer = 0f;
             sanctuaryHealth.TakeDamage(damage);
+        }
+    }
+
+    private void UpdateAnimator()
+    {
+        if (animator == null) return;
+
+        animator.SetFloat("Speed", rb.linearVelocity.magnitude);
+
+        if (rb.linearVelocity.magnitude > 0.1f)
+        {
+            animator.SetFloat("DirX", moveDirection.x);
+            animator.SetFloat("DirY", moveDirection.y);
         }
     }
 

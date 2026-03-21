@@ -26,6 +26,9 @@
 - Spritesheets : `Sprite Mode > Multiple` + `Filter Mode > Point` + `Slice 64x64`
 - Blend Tree 2D Simple Directional : paramètres DirX/DirY + Speed
 - Samples animation : frames/seconde — ajuster pour cohérence entre clips
+- Ne jamais glisser des frames d'animation sur un GameObject UI (Canvas)
+  → toujours glisser sur le bon GameObject ou prefab dans le Project
+- Scripts UI : toujours protéger avec `if (x == null) return` pour éviter les crashes
 - Template "Universal 2D" préconfigure URP + caméra orthographique
   + paramètres 2D
 
@@ -193,6 +196,7 @@
 - `Time.timeScale = 0f` pour pauser · `1f` pour reprendre
 - `SceneManager.LoadScene` recharge la scène complète
 - `GameOverPanel.SetActive(false)` au démarrage — caché par défaut
+- Scripts UI protégés avec `if (x == null) return`
 
 ---
 
@@ -216,7 +220,7 @@
 
 ---
 
-### Session 10 — Animations
+### Session 10 — Animations joueur
 **Statut :** ✅ Terminée (2026-03-20)
 
 #### Ce qui a été fait
@@ -238,6 +242,28 @@
 
 ---
 
+### Session 11 — Animations ennemis plantes
+**Statut :** ✅ Terminée (2026-03-20)
+
+#### Ce qui a été fait
+| Étape | Action |
+|---|---|
+| 1 | Dossier `Animations/Enemies/` créé |
+| 2 | 4 clips Idle + 4 clips Walk créés pour Plant1 |
+| 3 | `Enemy_AC` Animator Controller créé |
+| 4 | Blend Tree `Idle_Blend` + `Walk_Blend` configurés |
+| 5 | `EnemyAI.cs` mis à jour avec `UpdateAnimator()` |
+| 6 | Prefab `Enemy` reconstruit entièrement |
+| 7 | Animations ennemis fonctionnelles |
+
+#### Points de vigilance
+- Ne jamais glisser des frames sur un GameObject UI
+- Prefab Enemy : SpriteRenderer · Rigidbody2D · CircleCollider2D · EnemyAI · Animator
+- `Circle Collider 2D` → `Is Trigger` ✅ obligatoire
+- Scale à `X:2 Y:2` pour visibilité
+
+---
+
 ## 🎉 Prototype v1 complet avec sprites et animations !
 
 ### Boucle de jeu fonctionnelle
@@ -246,11 +272,10 @@
 - ✅ Cycle jour/nuit avec ambiance lumineuse
 - ✅ Tuiles corrompues purifiables au contact
 - ✅ Sanctuaire avec jauge de vie
-- ✅ Plantes ennemies nocturnes avec sprites
+- ✅ Plantes ennemies animées nocturnes
 - ✅ Game Over + Restart
 
 ### Prochaines étapes possibles
-- [ ] Animations ennemis (plantes)
 - [ ] Tilemap forêt avec vrais sprites
 - [ ] Sons et musique
 - [ ] Menu principal
@@ -280,16 +305,26 @@ Assets/
  │    │        ├── CorruptionManager.cs
  │    │        └── SanctuaryHealth.cs
  │    ├── Animations/
- │    │    └── Player/
- │    │        ├── Player_AC.controller
- │    │        ├── Idle_Down.anim
- │    │        ├── Idle_Left.anim
- │    │        ├── Idle_Right.anim
- │    │        ├── Idle_Up.anim
- │    │        ├── Walk_Down.anim
- │    │        ├── Walk_Left.anim
- │    │        ├── Walk_Right.anim
- │    │        └── Walk_Up.anim
+ │    │    ├── Player/
+ │    │    │   ├── Player_AC.controller
+ │    │    │   ├── Idle_Down.anim
+ │    │    │   ├── Idle_Left.anim
+ │    │    │   ├── Idle_Right.anim
+ │    │    │   ├── Idle_Up.anim
+ │    │    │   ├── Walk_Down.anim
+ │    │    │   ├── Walk_Left.anim
+ │    │    │   ├── Walk_Right.anim
+ │    │    │   └── Walk_Up.anim
+ │    │    └── Enemies/
+ │    │        ├── Enemy_AC.controller
+ │    │        ├── Plant1_Idle_Down.anim
+ │    │        ├── Plant1_Idle_Left.anim
+ │    │        ├── Plant1_Idle_Right.anim
+ │    │        ├── Plant1_Idle_Up.anim
+ │    │        ├── Plant1_Walk_Down.anim
+ │    │        ├── Plant1_Walk_Left.anim
+ │    │        ├── Plant1_Walk_Right.anim
+ │    │        └── Plant1_Walk_Up.anim
  │    ├── Audio/
  │    │    ├── Music/
  │    │    └── SFX/

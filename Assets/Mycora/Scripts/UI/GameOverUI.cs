@@ -3,17 +3,18 @@ using UnityEngine.SceneManagement;
 
 public class GameOverUI : MonoBehaviour
 {
-    [Header("Références")]
     [SerializeField] private GameObject gameOverPanel;
 
     private void Start()
     {
-        gameOverPanel.SetActive(false);
+        if (gameOverPanel != null)
+            gameOverPanel.SetActive(false);
     }
 
     public void ShowGameOver()
     {
-        gameOverPanel.SetActive(true);
+        if (gameOverPanel != null)
+            gameOverPanel.SetActive(true);
         Time.timeScale = 0f;
     }
 
