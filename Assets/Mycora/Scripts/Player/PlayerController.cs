@@ -40,8 +40,12 @@ public class PlayerController : MonoBehaviour
     {
         if (animator == null) return;
 
-        animator.SetFloat("SpeedX", moveInput.x);
-        animator.SetFloat("SpeedY", moveInput.y);
         animator.SetFloat("Speed", moveInput.magnitude);
+
+        if (moveInput.magnitude > 0.1f)
+        {
+            animator.SetFloat("DirX", moveInput.x);
+            animator.SetFloat("DirY", moveInput.y);
+        }
     }
 }

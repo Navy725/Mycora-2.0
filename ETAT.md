@@ -24,6 +24,8 @@
   → à créer via `Hierarchy > Light > 2D > Global Light 2D`
 - Les tags doivent être créés sans espace sinon `CompareTag` plante
 - Spritesheets : `Sprite Mode > Multiple` + `Filter Mode > Point` + `Slice 64x64`
+- Blend Tree 2D Simple Directional : paramètres DirX/DirY + Speed
+- Samples animation : frames/seconde — ajuster pour cohérence entre clips
 - Template "Universal 2D" préconfigure URP + caméra orthographique
   + paramètres 2D
 
@@ -200,7 +202,7 @@
 #### Ce qui a été fait
 | Étape | Action |
 |---|---|
-| 1 | Assets téléchargés sur itch.io et craftpix.net |
+| 1 | Assets téléchargés sur itch.io |
 | 2 | `Unarmed_Walk_full.png` importé pour le joueur (64x64, 4 directions, 6 frames) |
 | 3 | `Plant1_Idle_full.png` + `Plant1_Walk_full.png` importés pour les ennemis |
 | 4 | Spritesheets découpées via Sprite Editor (Grid 64x64) |
@@ -214,10 +216,32 @@
 
 ---
 
-## 🎉 Prototype v1 complet avec sprites !
+### Session 10 — Animations
+**Statut :** ✅ Terminée (2026-03-20)
+
+#### Ce qui a été fait
+| Étape | Action |
+|---|---|
+| 1 | `Player_AC` Animator Controller créé dans `Animations/Player/` |
+| 2 | 4 clips Walk créés (Down/Left/Right/Up) depuis `Unarmed_Walk_full` |
+| 3 | 4 clips Idle créés (Down/Left/Right/Up) depuis `Unarmed_Idle_full` |
+| 4 | Blend Tree `Idle_Blend` + `Walk_Blend` configurés (2D Simple Directional) |
+| 5 | Transitions Idle ↔ Walk via paramètre `Speed` |
+| 6 | `UpdateAnimator()` mis à jour dans `PlayerController.cs` |
+| 7 | Animations 4 directions fonctionnelles |
+
+#### Points de vigilance
+- Blend Tree paramètres : `DirX`, `DirY`, `Speed`
+- `Has Exit Time` décoché sur toutes les transitions
+- `Transition Duration` à `0` pour transitions instantanées
+- `Idle_Up` à 4 samples (4 frames) pour cohérence avec les autres clips à 12 samples
+
+---
+
+## 🎉 Prototype v1 complet avec sprites et animations !
 
 ### Boucle de jeu fonctionnelle
-- ✅ Le druide bouge en top-down avec sprite pixel art
+- ✅ Le druide bouge en top-down avec animations 4 directions
 - ✅ Tilemap forêt + caméra qui suit
 - ✅ Cycle jour/nuit avec ambiance lumineuse
 - ✅ Tuiles corrompues purifiables au contact
@@ -226,7 +250,7 @@
 - ✅ Game Over + Restart
 
 ### Prochaines étapes possibles
-- [ ] Animations (marche 4 directions, idle)
+- [ ] Animations ennemis (plantes)
 - [ ] Tilemap forêt avec vrais sprites
 - [ ] Sons et musique
 - [ ] Menu principal
@@ -257,6 +281,15 @@ Assets/
  │    │        └── SanctuaryHealth.cs
  │    ├── Animations/
  │    │    └── Player/
+ │    │        ├── Player_AC.controller
+ │    │        ├── Idle_Down.anim
+ │    │        ├── Idle_Left.anim
+ │    │        ├── Idle_Right.anim
+ │    │        ├── Idle_Up.anim
+ │    │        ├── Walk_Down.anim
+ │    │        ├── Walk_Left.anim
+ │    │        ├── Walk_Right.anim
+ │    │        └── Walk_Up.anim
  │    ├── Audio/
  │    │    ├── Music/
  │    │    └── SFX/
