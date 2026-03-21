@@ -23,6 +23,7 @@
 - `Global Light 2D` n'est pas créé automatiquement par le template Universal 2D
   → à créer via `Hierarchy > Light > 2D > Global Light 2D`
 - Les tags doivent être créés sans espace sinon `CompareTag` plante
+- Spritesheets : `Sprite Mode > Multiple` + `Filter Mode > Point` + `Slice 64x64`
 - Template "Universal 2D" préconfigure URP + caméra orthographique
   + paramètres 2D
 
@@ -193,23 +194,43 @@
 
 ---
 
-## 🎉 Prototype v1 complet !
+### Session 09 — Sprites pixel art
+**Statut :** ✅ Terminée (2026-03-20)
+
+#### Ce qui a été fait
+| Étape | Action |
+|---|---|
+| 1 | Assets téléchargés sur itch.io et craftpix.net |
+| 2 | `Unarmed_Walk_full.png` importé pour le joueur (64x64, 4 directions, 6 frames) |
+| 3 | `Plant1_Idle_full.png` + `Plant1_Walk_full.png` importés pour les ennemis |
+| 4 | Spritesheets découpées via Sprite Editor (Grid 64x64) |
+| 5 | Player et Enemy remplacés par les vrais sprites |
+
+#### Points de vigilance
+- `Sprite Mode > Multiple` + `Filter Mode > Point (no filter)` + `Pixels Per Unit 64`
+- Slice en `Grid By Cell Size` → `64x64`
+- Scale Enemy à `X:2 Y:2` pour visibilité
+- Sources : itch.io (free-game-assets) — licence libre pour projets
+
+---
+
+## 🎉 Prototype v1 complet avec sprites !
 
 ### Boucle de jeu fonctionnelle
-- ✅ Le druide bouge en top-down
+- ✅ Le druide bouge en top-down avec sprite pixel art
 - ✅ Tilemap forêt + caméra qui suit
 - ✅ Cycle jour/nuit avec ambiance lumineuse
 - ✅ Tuiles corrompues purifiables au contact
 - ✅ Sanctuaire avec jauge de vie
-- ✅ Ennemis nocturnes qui attaquent
+- ✅ Plantes ennemies nocturnes avec sprites
 - ✅ Game Over + Restart
 
 ### Prochaines étapes possibles
-- [ ] Sprites pixel art (druide, ennemis, tuiles)
-- [ ] Animations (marche 4 directions, purification)
+- [ ] Animations (marche 4 directions, idle)
+- [ ] Tilemap forêt avec vrais sprites
 - [ ] Sons et musique
 - [ ] Menu principal
-- [ ] Difficulté progressive (plus d'ennemis chaque nuit)
+- [ ] Difficulté progressive
 - [ ] Score / compteur de nuits survivées
 
 ---
@@ -252,7 +273,11 @@ Assets/
  │    │        └── SampleScene.unity
  │    ├── Sprites/
  │    │    ├── Player/
+ │    │    │   ├── Unarmed_Walk_full.png
+ │    │    │   └── Unarmed_Idle_full.png
  │    │    ├── Enemies/
+ │    │    │   ├── Plant1_Idle_full.png
+ │    │    │   └── Plant1_Walk_full.png
  │    │    ├── Environment/
  │    │    │   ├── Tile_Ground_Placeholder
  │    │    │   └── Tile_Corruption_Placeholder
