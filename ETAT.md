@@ -29,6 +29,7 @@
 - Samples animation : frames/seconde — ajuster pour cohérence entre clips
 - Ne jamais glisser des frames d'animation sur un GameObject UI (Canvas)
 - Scripts UI : toujours protéger avec `if (x == null) return`
+- `Point Light 2D` dans Unity 6 → utiliser `Spot Light 2D` avec angles à `360`
 - Template "Universal 2D" préconfigure URP + caméra orthographique
   + paramètres 2D
 
@@ -176,7 +177,7 @@
 #### Ce qui a été fait
 | Étape | Action |
 |---|---|
-| 1 | Prefab `Enemy` créé (carré rouge, Rigidbody2D, Circle Collider 2D) |
+| 1 | Prefab `Enemy` créé (Rigidbody2D, Circle Collider 2D) |
 | 2 | `EnemyAI.cs` créé dans `Scripts/Enemies/` |
 | 3 | `EnemySpawner.cs` créé dans `Scripts/Enemies/` |
 | 4 | Tag `Sanctuary` créé et assigné à `SanctuaryZone` |
@@ -251,7 +252,7 @@
 - Blend Tree paramètres : `DirX`, `DirY`, `Speed`
 - `Has Exit Time` décoché sur toutes les transitions
 - `Transition Duration` à `0` pour transitions instantanées
-- `Idle_Up` à 4 samples (4 frames) pour cohérence avec les autres clips à 12 samples
+- `Idle_Up` à 4 samples pour cohérence avec les autres clips à 12 samples
 
 ---
 
@@ -296,20 +297,38 @@
 
 ---
 
-## 🎉 Prototype v1 complet avec vrais assets visuels !
+### Session 13 — Lumières ponctuelles Sanctuaire
+**Statut :** ✅ Terminée (2026-03-22)
+
+#### Ce qui a été fait
+| Étape | Action |
+|---|---|
+| 1 | `Spot Light 2D` ajouté sur `SanctuaryZone` (angles 360 = Point Light) |
+| 2 | Couleur dorée `#FFB830`, Range `5` |
+| 3 | `SanctuaryLight.cs` créé dans `Scripts/Core/` |
+| 4 | Lumière pulse doucement — discrète le jour, intense la nuit |
+
+#### Points de vigilance
+- `Point Light 2D` dans Unity 6 → utiliser `Spot Light 2D` avec Inner/Outer Angle à `360`
+- `Mathf.Sin(Time.time * pulseSpeed)` pour l'effet de pulsation
+- `dayIntensity` et `nightIntensity` réglables dans l'Inspector
+
+---
+
+## 🎉 Prototype v1 avec ambiance visuelle complète !
 
 ### Boucle de jeu fonctionnelle
 - ✅ Le druide bouge en top-down avec animations 4 directions
 - ✅ Tilemap forêt avec vrais sprites pixel art
 - ✅ Caméra qui suit
 - ✅ Cycle jour/nuit avec ambiance lumineuse
+- ✅ Lumière dorée pulsante sur le Sanctuaire
 - ✅ Tuiles corrompues purifiables au contact
 - ✅ Sanctuaire avec jauge de vie
 - ✅ Plantes ennemies animées nocturnes
 - ✅ Game Over + Restart
 
 ### Prochaines étapes possibles
-- [ ] Lumières ponctuelles autour du Sanctuaire
 - [ ] Particules magiques (lucioles)
 - [ ] Sons et musique
 - [ ] Menu principal
@@ -319,65 +338,3 @@
 ---
 
 ## Structure du projet (Assets/)
-```
-Assets/
- ├── Mycora/
- │    ├── Scripts/
- │    │    ├── Player/
- │    │    │   ├── PlayerController.cs
- │    │    │   └── Purification.cs
- │    │    ├── Camera/
- │    │    │   └── CameraFollow.cs
- │    │    ├── Enemies/
- │    │    │   ├── EnemyAI.cs
- │    │    │   └── EnemySpawner.cs
- │    │    ├── UI/
- │    │    │   ├── HealthBarUI.cs
- │    │    │   └── GameOverUI.cs
- │    │    └── Core/
- │    │        ├── DayNightCycle.cs
- │    │        ├── CorruptionManager.cs
- │    │        └── SanctuaryHealth.cs
- │    ├── Animations/
- │    │    ├── Player/
- │    │    │   ├── Player_AC.controller
- │    │    │   ├── Idle_Down.anim · Idle_Left.anim · Idle_Right.anim · Idle_Up.anim
- │    │    │   └── Walk_Down.anim · Walk_Left.anim · Walk_Right.anim · Walk_Up.anim
- │    │    └── Enemies/
- │    │        ├── Enemy_AC.controller
- │    │        ├── Plant1_Idle_Down.anim · Plant1_Idle_Left.anim · Plant1_Idle_Right.anim · Plant1_Idle_Up.anim
- │    │        └── Plant1_Walk_Down.anim · Plant1_Walk_Left.anim · Plant1_Walk_Right.anim · Plant1_Walk_Up.anim
- │    ├── Audio/
- │    │    ├── Music/
- │    │    └── SFX/
- │    ├── Input/
- │    │    └── PlayerInputActions.inputactions
- │    ├── Prefabs/
- │    │    ├── Player/
- │    │    └── Enemies/
- │    │        └── Enemy.prefab
- │    ├── Scenes/
- │    │    ├── Production/
- │    │    │   └── Game.unity
- │    │    └── Sandbox/
- │    │        └── SampleScene.unity
- │    ├── Sprites/
- │    │    ├── Player/
- │    │    │   ├── Unarmed_Walk_full.png
- │    │    │   └── Unarmed_Idle_full.png
- │    │    ├── Enemies/
- │    │    │   ├── Plant1_Idle_full.png
- │    │    │   └── Plant1_Walk_full.png
- │    │    ├── Environment/
- │    │    │   ├── exterior.png
- │    │    │   └── ground_grass_details.png
- │    │    └── UI/
- │    └── Tilemaps/
- │         ├── Palettes/
- │         │   ├── Palette_Ground
- │         │   ├── Palette_Corruption
- │         │   └── Palette_Forest
- │         └── Tiles/
- ├── ThirdParty/
- └── Settings/
-```
