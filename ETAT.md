@@ -24,13 +24,26 @@
   → à créer via `Hierarchy > Light > 2D > Global Light 2D`
 - Les tags doivent être créés sans espace sinon `CompareTag` plante
 - Spritesheets : `Sprite Mode > Multiple` + `Filter Mode > Point` + `Slice 64x64`
+- Tilesets : `Pixels Per Unit` = taille de la tuile (16 pour du 16x16)
 - Blend Tree 2D Simple Directional : paramètres DirX/DirY + Speed
 - Samples animation : frames/seconde — ajuster pour cohérence entre clips
 - Ne jamais glisser des frames d'animation sur un GameObject UI (Canvas)
-  → toujours glisser sur le bon GameObject ou prefab dans le Project
-- Scripts UI : toujours protéger avec `if (x == null) return` pour éviter les crashes
+- Scripts UI : toujours protéger avec `if (x == null) return`
 - Template "Universal 2D" préconfigure URP + caméra orthographique
   + paramètres 2D
+
+---
+
+## Palette de couleurs Mycora (inspirée concept art Sanctuaire)
+| Élément | Couleur |
+|---|---|
+| Sol pavé | `#3D3528` |
+| Herbe forêt | `#1A3D1A` |
+| Corruption | `#2D0A4E` |
+| Runes dorées | `#FFB830` |
+| Runes bleues | `#30CFFF` |
+| Lucioles | `#AAFF44` |
+| Ciel nuit | `#0A0A2E` |
 
 ---
 
@@ -264,11 +277,31 @@
 
 ---
 
-## 🎉 Prototype v1 complet avec sprites et animations !
+### Session 12 — Tilemap forêt avec vrais sprites
+**Statut :** ✅ Terminée (2026-03-20)
+
+#### Ce qui a été fait
+| Étape | Action |
+|---|---|
+| 1 | Pack CraftPix "Main Character's Home" téléchargé |
+| 2 | `exterior.png` + `ground_grass_details.png` importés (16x16) |
+| 3 | `Palette_Forest` créée dans `Tilemaps/Palettes/` |
+| 4 | Sol repeint avec vrais sprites de forêt |
+
+#### Points de vigilance
+- `Pixels Per Unit` → `16` pour les tilesets 16x16
+- `ground_grass_details.png` → Slice en `Automatic`
+- `exterior.png` → Slice en `Grid By Cell Size 16x16`
+- Source : CraftPix — licence libre pour projets perso et commerciaux
+
+---
+
+## 🎉 Prototype v1 complet avec vrais assets visuels !
 
 ### Boucle de jeu fonctionnelle
 - ✅ Le druide bouge en top-down avec animations 4 directions
-- ✅ Tilemap forêt + caméra qui suit
+- ✅ Tilemap forêt avec vrais sprites pixel art
+- ✅ Caméra qui suit
 - ✅ Cycle jour/nuit avec ambiance lumineuse
 - ✅ Tuiles corrompues purifiables au contact
 - ✅ Sanctuaire avec jauge de vie
@@ -276,7 +309,8 @@
 - ✅ Game Over + Restart
 
 ### Prochaines étapes possibles
-- [ ] Tilemap forêt avec vrais sprites
+- [ ] Lumières ponctuelles autour du Sanctuaire
+- [ ] Particules magiques (lucioles)
 - [ ] Sons et musique
 - [ ] Menu principal
 - [ ] Difficulté progressive
@@ -307,24 +341,12 @@ Assets/
  │    ├── Animations/
  │    │    ├── Player/
  │    │    │   ├── Player_AC.controller
- │    │    │   ├── Idle_Down.anim
- │    │    │   ├── Idle_Left.anim
- │    │    │   ├── Idle_Right.anim
- │    │    │   ├── Idle_Up.anim
- │    │    │   ├── Walk_Down.anim
- │    │    │   ├── Walk_Left.anim
- │    │    │   ├── Walk_Right.anim
- │    │    │   └── Walk_Up.anim
+ │    │    │   ├── Idle_Down.anim · Idle_Left.anim · Idle_Right.anim · Idle_Up.anim
+ │    │    │   └── Walk_Down.anim · Walk_Left.anim · Walk_Right.anim · Walk_Up.anim
  │    │    └── Enemies/
  │    │        ├── Enemy_AC.controller
- │    │        ├── Plant1_Idle_Down.anim
- │    │        ├── Plant1_Idle_Left.anim
- │    │        ├── Plant1_Idle_Right.anim
- │    │        ├── Plant1_Idle_Up.anim
- │    │        ├── Plant1_Walk_Down.anim
- │    │        ├── Plant1_Walk_Left.anim
- │    │        ├── Plant1_Walk_Right.anim
- │    │        └── Plant1_Walk_Up.anim
+ │    │        ├── Plant1_Idle_Down.anim · Plant1_Idle_Left.anim · Plant1_Idle_Right.anim · Plant1_Idle_Up.anim
+ │    │        └── Plant1_Walk_Down.anim · Plant1_Walk_Left.anim · Plant1_Walk_Right.anim · Plant1_Walk_Up.anim
  │    ├── Audio/
  │    │    ├── Music/
  │    │    └── SFX/
@@ -347,13 +369,15 @@ Assets/
  │    │    │   ├── Plant1_Idle_full.png
  │    │    │   └── Plant1_Walk_full.png
  │    │    ├── Environment/
- │    │    │   ├── Tile_Ground_Placeholder
- │    │    │   └── Tile_Corruption_Placeholder
+ │    │    │   ├── exterior.png
+ │    │    │   └── ground_grass_details.png
  │    │    └── UI/
  │    └── Tilemaps/
- │         └── Palettes/
- │             ├── Palette_Ground
- │             └── Palette_Corruption
+ │         ├── Palettes/
+ │         │   ├── Palette_Ground
+ │         │   ├── Palette_Corruption
+ │         │   └── Palette_Forest
+ │         └── Tiles/
  ├── ThirdParty/
  └── Settings/
 ```
